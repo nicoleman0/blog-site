@@ -5,13 +5,9 @@ draft: false
 showToc: false
 ---
 
-## About This Site
+## Corvus Blog
 
-This blog covers security research, development tools, and technical projects. Topics include:
-
-- **Security Research** - Vulnerability analysis, CTF writeups, and security tooling
-- **Development** - Programming projects, automation scripts, and system utilities
-- **Tools** - Custom tools and utilities for security and development workflows
+This is my personal blog for research and tools.
 
 ## Contact
 

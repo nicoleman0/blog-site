@@ -1,6 +1,6 @@
 baseURL = 'https://nicoleman0.github.io/blog-site/'
 languageCode = 'en-us'
-title = 'Security Research & Development'
+title = 'Corvus Blog'
 theme = 'PaperMod'
 
 [pagination]
