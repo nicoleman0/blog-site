@@ -40,7 +40,7 @@ But here's where it got fascinating. Claude noticed something odd: a process cal
 
 1. Traced the process to `/system/bin/sss` (a 7.2MB binary)
 2. Found the config file at `/system/bin/c.json`
-3. Extracted the configuration, revealing it was **shadowsocks-rust** with the password `j*****s`
+3. Extracted the configuration, revealing it was **shadowsocks-rust** with the password `j*********s`
 4. Discovered an init script at `/system/etc/init/ssserver.rc` showing this was intentionally configured to auto-start on boot
 5. Analyzed the binary using `strings` and confirmed it was the Rust implementation of Shadowsocks
 6. Cross-referenced active connections and determined clients were connecting from Vodafone India's network
@@ -51,7 +51,7 @@ The full Shadowsocks configuration Claude extracted:
     "server": "0.0.0.0",
     "server_port": 20202,
     "dns": "cloudflare",
-    "password": "jugalrocks",
+    "password": "j*********s",
     "method": "aes-256-gcm",
     "tcp": true,
     "udp": false
