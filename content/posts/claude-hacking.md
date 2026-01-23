@@ -3,7 +3,7 @@ title: "Claude the Hacker"
 date: 2026-01-23
 draft: false
 description: "Integrating Claude into a pentesting workflow"
-tags: ["meta"]
+tags: ["recon"]
 categories: ["general"]
 toc: false
 ---
