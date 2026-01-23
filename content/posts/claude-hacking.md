@@ -12,7 +12,7 @@ toc: false
 
 With the advent of these extremely powerful CLI coding agents, I decided to test out and see how well something like Claude performs in the context of independent security researching (poking around vulnerable systems).
 
-I began with some simple recon. I went over to [shodan](shodan.io), and looked around for some vulnerable systems running Telnet with root already logged in (not going to post about how to do this, but it's not hard).
+I began with some simple recon. I went over to [shodan](https://shodan.io), and looked around for some vulnerable systems running Telnet with root already logged in (not going to post about how to do this, but it's not hard).
 
 I found many vulnerable IPs, but chose one in Hong Kong at random. After manually testing whether or not I could remotely access the system and succeeding, it was now time to see if Claude could do the same.
 
@@ -68,7 +68,13 @@ What impressed me most wasn't just the findings, it was really how Claude went a
 - **Adapted its approach**: When initial connection attempts timed out, it switched to socket-based Python scripts with proper timeout handling
 - **Formatted findings** into a professional penetration test report without being asked
 
-The device had been up for 3 days, and the proxy was actively serving multiple clients. By analyzing connection patterns to Cloudflare CDN and Tencent Cloud servers, Claude theorized (correctly, in my assessment) that someone had intentionally repurposed this cheap IPTV box as a personal proxy server, likely to access geo-restricted streaming content (China-only content).
+The device had been up for 3 days, and the proxy was actively serving multiple clients. By analyzing connection patterns to Cloudflare CDN and Tencent Cloud servers, Claude theorized (correctly, in my assessment) that someone had intentionally repurposed this cheap IPTV box as a personal proxy server, likely to access geo-restricted streaming content.
+
+It is most likely an Indian user accessing Chinese content that is geo-restricted to China. The Hong Kong IP location gives them an IP that allows them to view the restricted content. The password also contains a common Indian name, and the ISP is Vodafone (large in India).
+
+I was confused at first, since I didn't know India had its own content restrictions that an HK proxy would help bypass (Chinese streaming platforms, etc.)
+
+So more or less, an Indian user is watching Chinese content that is geo-restricted, by using a proxy server in Hong Kong to get around it.
 
 ## Other Exposed Services
 
