@@ -26,7 +26,9 @@ What would have taken me a couple of hours before was accomplished in little und
 
 ## What the Agent Found
 
-The system turned out to be a **generic IPTV set-top box** running Android, with a masked hostname and anonymized IP. Within minutes, the agent had mapped out the entire attack surface:
+The system turned out to be a **generic IPTV set-top box** running Android.
+
+Within minutes, the agent had mapped out the entire attack surface:
 
 **Critical Vulnerabilities Discovered:**
 - **Unauthenticated root telnet access** on port 23
@@ -34,7 +36,7 @@ The system turned out to be a **generic IPTV set-top box** running Android, with
 - Multiple streaming apps with questionable security posture
 - A **proxy server** running on port 20202
 
-But here's where it got fascinating. The agent noticed something odd: a process listening on port 20202 with dozens of active connections to an anonymized external IP. Instead of just noting it and moving on, the agent autonomously:
+But in addition to all this, the agent noticed something odd: a process listening on port 20202 with dozens of active connections to an anonymized external IP. Instead of just noting it and moving on, the agent autonomously:
 
 1. Traced the process to `/system/bin/sss` (a binary)
 2. Found the config file at `/system/bin/c.json`
