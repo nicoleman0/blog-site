@@ -2,7 +2,7 @@
 title: "Telnet, Shodan, and Claude"
 date: 2026-01-23
 draft: false
-description: "Integrating Claud1e into a pentesting workflow"
+description: "Claude is too good at reconnaissance"
 tags: ["recon", "ai-hacking", "claude", "telnet"]
 categories: ["general"]
 toc: false
