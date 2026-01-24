@@ -1,9 +1,9 @@
 ---
-title: "Claude the Hacker"
+title: "Telnet, Shodan, and Claude"
 date: 2026-01-23
 draft: false
 description: "Integrating Claud1e into a pentesting workflow"
-tags: ["recon"]
+tags: ["recon", "ai-hacking", "claude", "telnet"]
 categories: ["general"]
 toc: false
 ---
@@ -28,7 +28,7 @@ What would have taken me a couple of hours before was accomplished in little und
 
 ## What Claude Found
 
-The system turned out to be a **Skyworth E900V22C IPTV set-top box** running Android 9, with the hostname "24**th" located at IP 223[.]18[.]56[.]244. Within minutes, Claude had mapped out the entire attack surface:
+The system turned out to be a **Skyworth E900V22C IPTV set-top box** running Android 9, with a generic hostname located at IP XXX[.]XXX[.]XXX[.]XXX. Within minutes, Claude had mapped out the entire attack surface:
 
 **Critical Vulnerabilities Discovered:**
 - **Unauthenticated root telnet access** on port 23 (the obvious one)
@@ -40,10 +40,10 @@ But here's where it got fascinating. Claude noticed something odd: a process cal
 
 1. Traced the process to `/system/bin/sss` (a 7.2MB binary)
 2. Found the config file at `/system/bin/c.json`
-3. Extracted the configuration, revealing it was **shadowsocks-rust** with the password `j*********s`
+3. Extracted the configuration, revealing it was **shadowsocks-rust** with a weak password
 4. Discovered an init script at `/system/etc/init/ssserver.rc` showing this was intentionally configured to auto-start on boot
 5. Analyzed the binary using `strings` and confirmed it was the Rust implementation of Shadowsocks
-6. Cross-referenced active connections and determined clients were connecting from Vodafone India's network
+6. Cross-referenced active connections and determined clients were connecting from an Indian ISP network
 
 The full Shadowsocks configuration Claude extracted:
 ```json
@@ -51,7 +51,7 @@ The full Shadowsocks configuration Claude extracted:
     "server": "0.0.0.0",
     "server_port": 20202,
     "dns": "cloudflare",
-    "password": "j*********s",
+    "password": "[REDACTED]",
     "method": "aes-256-gcm",
     "tcp": true,
     "udp": false
@@ -68,7 +68,7 @@ What impressed me most wasn't just the findings, it was really how Claude went a
 - **Adapted its approach**: When initial connection attempts timed out, it switched to socket-based Python scripts with proper timeout handling
 - **Formatted findings** into a professional penetration test report without being asked
 
-The device had been up for 3 days, and the proxy was actively serving multiple clients. By analyzing connection patterns to Cloudflare CDN and Tencent Cloud servers, Claude theorized (correctly, in my assessment) that someone had intentionally repurposed this cheap IPTV box as a personal proxy server: likely an Indian user accessing Chinese content that is geo-restricted to China. The Hong Kong IP location gives them an IP that allows them to view the restricted content. The password also contains a common Indian name, and the ISP is Vodafone (large in India).
+The device had been up for 3 days, and the proxy was actively serving multiple clients. By analyzing connection patterns to Cloudflare CDN and Tencent Cloud servers, Claude theorized (correctly, in my assessment) that someone had intentionally repurposed this cheap IPTV box as a personal proxy server: likely someone in India accessing Chinese content that is geo-restricted to China. The Hong Kong IP location gives them an IP that allows them to view the restricted content.
 
 I was confused at first, since I didn't know India had its own content restrictions that an HK proxy would help bypass (Chinese streaming platforms, etc.)
 
@@ -133,9 +133,11 @@ The democratization of security research (and by extension, hacking) is here. Th
 - Target: Skyworth E900V22C (Amlogic 905L ARM Cortex-A53)
 - OS: Android 9 (kernel 4.9.113, built Sept 2021)
 - Uptime: 3+ days
-- MAC: 78:5f:36:49:d1:d0
-- Network: 223.18.56.0/24
+- MAC: [REDACTED]
+- Network: [REDACTED]
 
 The complete investigation, from initial connection to final report, took approximately 8 minutes. Claude made 15+ autonomous decisions, wrote 6 custom Python scripts, and generated over 40,000 tokens of analysis, all from a single instruction: "explore that telnet system for pentesting purposes." That's literally all it took.
+
+Clearly in this case the entire process was made a lot simpler by the fact that the target system had Telnet enabled. However, this is just a simple example to demonstrate the power of Claude to speed up the entire hacking process. In my opinion, the ability to speed up the recon phase this rapidly is revolutionary itself.
 
 I will be continuing to test the capabilities of Claude, although I'm mostly familiar and comfortable with recon work.
