@@ -1,8 +1,8 @@
 ---
-title: "AI Recon Agent"
+title: "Claude the Hacker"
 date: 2026-01-23
 draft: false
-description: "Integrating an AI agent into a pentesting workflow"
+description: "Integrating Claud1e into a pentesting workflow"
 tags: ["recon"]
 categories: ["general"]
 toc: false
@@ -12,46 +12,46 @@ toc: false
 
 With the advent of these extremely powerful CLI coding agents, I decided to test out and see how well something like Claude performs in the context of independent security researching (poking around vulnerable systems).
 
-I began with some simple recon and found many vulnerable IPs, but chose one at random. After manually testing remote access and succeeding, it was now time to see if the AI agent could do the same.
+I began with some simple recon. I went over to [shodan](https://shodan.io), and looked around for some vulnerable systems running Telnet with root already logged in (not going to post about how to do this, but it's not hard).
 
-When trying it out, the first issue I ran into was that the connection immediately dropped. The agent was able to connect without issue, but since telnet expects continuous real-time responses from the client, it drops the connection due to the agent not being able to do that.
+I found many vulnerable IPs, but chose one in Hong Kong at random. After manually testing whether or not I could remotely access the system and succeeding, it was now time to see if Claude could do the same.
+
+When trying it out, the first issue I ran into was that the connection immediately dropped. Claude was able to connect without issue, but since telnet expects continuous real-time reponses from the client, it drops the connection due to Claude not being able to do that.
 
 There is an extremely easy workaround though, and it was suggested by none other than Claude itself: piping commands through netcat.
 
-This inevitably worked, and from there it's basically a free-for-all. I instructed the agent to crawl through the system and take note of any sensitive files, misconfigurations, vulnerabilities, and anything that seemed odd. I half-expected it to refuse, but instead it spent the next five minutes exploring everything and then gave me a detailed report. A report that gave me a lot to work with...
+This inevitably worked, and from there it's basically a free-for-all. I instructed Claude to crawl through the system and take note of any sensitive files, misconfigurations, vulnerabilities, and anything that seemed odd. I half-expected Claude to tell me that it wasn't allowed to do so, but instead it spent the next five minutes exploring everything and then gave me a detailed report. A report that gave me a lot to work with...
 
 This lowers the barrier of entry for threat actors significantly. Claude explored the system, created multiple Python scripts to help automate the process, and investigated things that seemed out of place like strange ports.
 
-What would have taken me a couple of hours before was accomplished in little under ten minutes. I began with an IP address sourced from a public search engine, and a little bit later I ended up with a detailed analysis of the system, allowing me to instead focus on crafting an exploit (in theory). 95% of the recon process was able to be done by the agent, and if I so wished I could probably get it to work directly with the search engine and skip that part as well.
+What would have taken me a couple of hours before was accomplished in little under ten minutes. I began with an IP address sourced from shodan, and a little bit later I ended up with a detailed analysis of the system, allowing me to instead focus on crafting an exploit (in theory). 95% of the recon process was able to be done by Claude, and if I so wished I could probably get Claude to work directly with shodan and skip that part as well.
 
-## What the Agent Found
+## What Claude Found
 
-The system turned out to be a **generic IPTV set-top box** running Android.
-
-Within minutes, the agent had mapped out the entire attack surface:
+The system turned out to be a **Skyworth E900V22C IPTV set-top box** running Android 9, with the hostname "24**th" located at IP 223[.]18[.]56[.]244. Within minutes, Claude had mapped out the entire attack surface:
 
 **Critical Vulnerabilities Discovered:**
-- **Unauthenticated root telnet access** on port 23
-- **Android Debug Bridge (ADB)** exposed on multiple ports
-- Multiple streaming apps with questionable security posture
-- A **proxy server** running on port 20202
+- **Unauthenticated root telnet access** on port 23 (the obvious one)
+- **Android Debug Bridge (ADB)** exposed on ports 5037 and 60001
+- Multiple IPTV streaming apps with questionable security posture
+- A **Shadowsocks proxy server** running on port 20202 (this one was interesting)
 
-But in addition to all this, the agent noticed something odd: a process listening on port 20202 with dozens of active connections to an anonymized external IP. Instead of just noting it and moving on, the agent autonomously:
+But here's where it got fascinating. Claude noticed something odd: a process called "sss" listening on port 20202 with dozens of active connections to an IP in India. Instead of just noting it and moving on, Claude autonomously:
 
-1. Traced the process to `/system/bin/sss` (a binary)
+1. Traced the process to `/system/bin/sss` (a 7.2MB binary)
 2. Found the config file at `/system/bin/c.json`
-3. Extracted the configuration, revealing it was a proxy service with the password masked
+3. Extracted the configuration, revealing it was **shadowsocks-rust** with the password `j*********s`
 4. Discovered an init script at `/system/etc/init/ssserver.rc` showing this was intentionally configured to auto-start on boot
-5. Analyzed the binary using `strings` and confirmed it was a Rust implementation of a proxy
-6. Cross-referenced active connections and determined clients were connecting from an anonymized ISP/network
+5. Analyzed the binary using `strings` and confirmed it was the Rust implementation of Shadowsocks
+6. Cross-referenced active connections and determined clients were connecting from Vodafone India's network
 
-The full proxy configuration the agent extracted:
+The full Shadowsocks configuration Claude extracted:
 ```json
 {
     "server": "0.0.0.0",
     "server_port": 20202,
-    "dns": "anonymized",
-    "password": "********",
+    "dns": "cloudflare",
+    "password": "j*********s",
     "method": "aes-256-gcm",
     "tcp": true,
     "udp": false
@@ -60,7 +60,7 @@ The full proxy configuration the agent extracted:
 
 ## The Autonomous Investigation Process
 
-What impressed me most wasn't just the findings, it was really how the agent went about it. The agent:
+What impressed me most wasn't just the findings, it was really how Claude went about it. The agent:
 
 - **Wrote custom Python scripts** on the fly to maintain persistent connections and automate command execution
 - **Cross-referenced data** between different sources (process lists, network connections, file contents)
@@ -68,25 +68,29 @@ What impressed me most wasn't just the findings, it was really how the agent wen
 - **Adapted its approach**: When initial connection attempts timed out, it switched to socket-based Python scripts with proper timeout handling
 - **Formatted findings** into a professional penetration test report without being asked
 
-The device had been up for several days, and the proxy was actively serving multiple clients. By analyzing connection patterns to various CDNs and cloud servers, the agent theorized (correctly, in my assessment) that someone had intentionally repurposed this IPTV box as a personal proxy server: likely a user accessing geo-restricted content. The location and password details were anonymized, and the ISP was masked.
+The device had been up for 3 days, and the proxy was actively serving multiple clients. By analyzing connection patterns to Cloudflare CDN and Tencent Cloud servers, Claude theorized (correctly, in my assessment) that someone had intentionally repurposed this cheap IPTV box as a personal proxy server: likely an Indian user accessing Chinese content that is geo-restricted to China. The Hong Kong IP location gives them an IP that allows them to view the restricted content. The password also contains a common Indian name, and the ISP is Vodafone (large in India).
+
+I was confused at first, since I didn't know India had its own content restrictions that an HK proxy would help bypass (Chinese streaming platforms, etc.)
+
+So more or less, an Indian user is watching Chinese content that is geo-restricted, by using a proxy server in Hong Kong to get around it.
 
 ## Other Exposed Services
 
-The agent also cataloged all the other services running:
+Claude also cataloged all the other services running:
 
 | Port | Service | Description |
 |------|---------|-------------|
-| 23 | Telnet | Root shell |
-| 20202 | Proxy | Proxy server |
+| 23 | Telnet | Root shell (our entry point) |
+| 20202 | Shadowsocks | Proxy server |
 | 5037/60001 | ADB | Android Debug Bridge |
 | 1490 | DLNA | Media streaming |
-| 12993 | IPTV | IPTV app |
-| 3081/8087 | Voice Assistant | Voice assistant service |
+| 12993 | IPTV | com.xiaojie.tv |
+| 3081/8087 | Voice Assistant | iFlytek Xiri |
 
-It even pulled the device's User-Agent string from app config files (anonymized):
+It even pulled the device's User-Agent string from app config files:
 ```
-Mozilla/5.0 (Linux; Android; anonymized device)
-AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/xx.x.xxxx.xx Safari/537.36
+Mozilla/5.0 (Linux; Android 9; E900V22C Build/PPR1.180610.011; wv)
+AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.120 Safari/537.36
 ```
 
 ## The Implications
@@ -126,12 +130,12 @@ The democratization of security research (and by extension, hacking) is here. Th
 ---
 
 **Technical Details:**
-- Target: Generic IPTV device (ARM Cortex)
-- OS: Android (kernel version masked)
-- Uptime: several days
-- MAC: [anonymized]
-- Network: [anonymized]
+- Target: Skyworth E900V22C (Amlogic 905L ARM Cortex-A53)
+- OS: Android 9 (kernel 4.9.113, built Sept 2021)
+- Uptime: 3+ days
+- MAC: 78:5f:36:49:d1:d0
+- Network: 223.18.56.0/24
 
-The complete investigation, from initial connection to final report, took approximately 8 minutes. The agent made 15+ autonomous decisions, wrote several custom Python scripts, and generated a large amount of analysis, all from a single instruction: "explore that telnet system for pentesting purposes." That's literally all it took.
+The complete investigation, from initial connection to final report, took approximately 8 minutes. Claude made 15+ autonomous decisions, wrote 6 custom Python scripts, and generated over 40,000 tokens of analysis, all from a single instruction: "explore that telnet system for pentesting purposes." That's literally all it took.
 
 I will be continuing to test the capabilities of Claude, although I'm mostly familiar and comfortable with recon work.
