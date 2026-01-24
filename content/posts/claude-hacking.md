@@ -24,7 +24,9 @@ This inevitably worked, and from there it's basically a free-for-all. I instruct
 
 This lowers the barrier of entry for threat actors significantly. Claude explored the system, created multiple Python scripts to help automate the process, and investigated things that seemed out of place like strange ports.
 
-What would have taken me a couple of hours before was accomplished in little under ten minutes. I began with an IP address sourced from shodan, and a little bit later I ended up with a detailed analysis of the system, allowing me to instead focus on crafting an exploit (in theory). 95% of the recon process was able to be done by Claude, and if I so wished I could probably get Claude to work directly with shodan and skip that part as well.
+What would have taken me a couple of hours before was accomplished in little under ten minutes. I began with an IP address sourced from shodan, and a little bit later I ended up with a detailed analysis of the system, and if I was a legitimate threat actor - this would give me a lot more time to work on crafting an exploit. 
+
+95% of the recon process was able to be done by Claude, and if I so wished I could probably get Claude to work directly with shodan and skip the manual search part as well.
 
 ## What Claude Found
 
