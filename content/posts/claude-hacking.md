@@ -38,7 +38,9 @@ The system turned out to be a **Skyworth E900V22C IPTV set-top box** running And
 - Multiple IPTV streaming apps with questionable security posture
 - A **Shadowsocks proxy server** running on port 20202 (this one was interesting)
 
-But here's where it got fascinating. Claude noticed something odd: a process called "sss" listening on port 20202 with dozens of active connections to an IP in India. Instead of just noting it and moving on, Claude autonomously:
+Everything so far has been pretty cut and dry. However, here's where it got interesting.
+
+Claude noticed something odd: a process called "sss" listening on port 20202 with dozens of active connections to an IP in India. Instead of just noting it and moving on, Claude autonomously:
 
 1. Traced the process to `/system/bin/sss` (a 7.2MB binary)
 2. Found the config file at `/system/bin/c.json`
@@ -62,7 +64,7 @@ The full Shadowsocks configuration Claude extracted:
 
 ## The Autonomous Investigation Process
 
-What impressed me most wasn't just the findings, it was really how Claude went about it. The agent:
+What impressed me most wasn't just the findings (which are relatively simple to get from a Telnet system that's been logged in as root), it was really how Claude went about it. The agent:
 
 - **Wrote custom Python scripts** on the fly to maintain persistent connections and automate command execution
 - **Cross-referenced data** between different sources (process lists, network connections, file contents)
