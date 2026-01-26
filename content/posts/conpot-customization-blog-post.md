@@ -5,29 +5,6 @@ description: "Building a believable HVAC controller honeypot"
 tags: ["ICS", "Industrial", "Honeypot", "Security-Research", "SCADA"]
 ---
 
-## Table of Contents
-
-* [Default Templates](#the-problem-with-default-templates)
-* [Research-Driven Customization](#research-driven-customization)
-* [Template Architecture Deep Dive](#template-architecture-deep-dive)
-  + [Understanding Conpot's Template System](#understanding-conpots-template-system)
-  + [Key Configuration Files](#key-configuration-files)
-* [Building a Realistic S7-1200 HVAC Controller](#building-a-realistic-s7-1200-hvac-controller)
-  + [Device Identity Customization](#device-identity-customization)
-  + [S7comm Protocol Responses](#s7comm-protocol-responses)
-  + [Modbus Register Configuration](#modbus-register-configuration)
-* [Docker Build Process](#docker-build-process)
-  + [Template Path Discovery](#template-path-discovery)
-  + [Custom Image Creation](#custom-image-creation)
-  + [Deployment Challenges](#deployment-challenges)
-* [Verification and Testing](#verification-and-testing)
-* [Why These Details Matter](#why-these-details-matter)
-* [Observations and Next Steps](#observations-and-next-steps)
-
-Following my [initial Conpot deployment](https://nicoleman0.github.io/blog-site/posts/conpot-deployment-blogpost/), I faced a critical question: would sophisticated attackers recognize the default "Technodrome" template as an obvious honeypot? The generic nature of Conpot's out-of-the-box configuration - with placeholder values like "Mouser Factory" and "Venus" as the system location - seemed unlikely to fool anyone conducting targeted ICS reconnaissance.
-
-This post documents the process of transforming a generic honeypot into a convincing simulation of a real-world industrial system: specifically, a Siemens S7-1200 PLC controlling HVAC equipment in a building automation deployment.
-
 ## The Problem with Default Templates
 
 Conpot's default template emulates an S7-200 PLC with whimsical configuration values clearly designed for demonstration purposes rather than realism. Examining the default `template.xml` reveals:
