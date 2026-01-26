@@ -4,8 +4,6 @@ date: 2026-01-26
 draft: false
 description: "Deploying an ICS Honeypot: A Practical Guide to Conpot on Cloud"
 tags: ["ics", "industrial", "honeypot", "security-research"]
-categories: ["general"]
-toc: false
 ---
 
 As part of my MSc research in Information Security at Royal Holloway, University of London, I've been investigating the threat landscape facing industrial control systems (ICS) and SCADA infrastructure. One of the most effective ways to understand attacker behavior in this space is through honeypot deployment; specifically, using Conpot to emulate vulnerable industrial systems.
