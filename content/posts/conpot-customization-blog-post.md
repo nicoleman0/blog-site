@@ -314,18 +314,7 @@ The investment in creating a realistic template serves several research objectiv
 
 **5. Building automation targeting**: This specific configuration allows research into attacks targeting building management systems, an increasingly concerning attack surface as smart buildings proliferate.
 
-## Observations and Next Steps
-
-The customized honeypot has been operational for several hours. Initial observations:
-
-**Immediate indexing**: Shodan has already indexed the new deployment, correctly identifying it as a Siemens S7-1200 rather than generic ICS equipment.
-
-**Log capture**: All interactions are being logged, including the complete HTTP headers from initial reconnaissance:
-
-```
-HTTP/1.1 GET request from ('144.126.203.72', 54496): 
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0
-```
+---
 
 **Next research phases**:
 
@@ -335,13 +324,6 @@ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147
 4. **Temporal analysis**: Identify patterns in when attacks occur and from which geographic regions
 5. **Protocol exploitation**: Document specific S7comm and Modbus exploit attempts
 
-**Long-term deployment strategy**:
-
-I plan to maintain both the original Technodrome deployment (for baseline comparison) and this customized S7-1200 HVAC controller. Running them on separate infrastructure will allow direct comparison of attack patterns against obviously fake versus convincingly realistic honeypots.
-
-The customization process, while technically involved, fundamentally improves the research value of the deployment. A honeypot that passes initial scrutiny from sophisticated attackers will generate higher-quality data about real-world attack methodologies against industrial control systems.
-
----
 
 **Technical Resources**:
 
