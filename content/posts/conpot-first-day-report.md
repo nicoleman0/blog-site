@@ -554,10 +554,4 @@ As this research continues, I'll be publishing weekly analyses of attack pattern
 
 ---
 
-**Disclosure:** This honeypot is deployed for academic research purposes under the supervision of Royal Holloway, University of London. All attack data is handled in accordance with ethical research guidelines and UK data protection regulations.
-
-**Code and Data:** Attack signatures, IOCs, and analysis scripts are available on my [GitHub repository](https://github.com/nicoleman0).
-
----
-
 *Have thoughts on this analysis or running your own honeypot research? Feel free to reach out - I'm always interested in collaborating on ICS security research.*
