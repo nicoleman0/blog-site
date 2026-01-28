@@ -1,4 +1,12 @@
-# Monitoring my ICS Honeypot with Grafana, Loki, and Promtail
+---
+title: "Monitoring my ICS Honeypot with Grafana, Loki, and Promtail"
+date: 2026-01-28
+draft: false
+description: "How to set up logging stack with Conpot"
+tags: ["ics", "industrial"]
+categories: ["general"]
+toc: false
+---
 
 ## Introduction
 
