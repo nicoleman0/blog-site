@@ -2,7 +2,7 @@
 title: "Telnet, Shodan, and Claude"
 date: 2026-01-23
 draft: false
-description: "Claude is too good at reconnaissance"
+description: "Claude is very good at reconnaissance"
 tags: ["recon", "ai-hacking", "claude", "telnet"]
 categories: ["general"]
 toc: false

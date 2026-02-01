@@ -2,7 +2,7 @@
 title: "Deploying an ICS Honeypot"
 date: 2026-01-26
 draft: false
-description: "Deploying an ICS Honeypot: A Practical Guide to Conpot on Cloud"
+description: "A Practical Guide to Deploying Conpot on Cloud"
 tags: ["ics", "industrial", "honeypot", "security-research"]
 ---
 

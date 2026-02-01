@@ -1,5 +1,5 @@
 ---
-title: "Monitoring my ICS Honeypot with Grafana, Loki, and Promtail"
+title: "Conpot Logging Stack"
 date: 2026-01-28
 draft: false
 description: "How to set up logging stack with Conpot"

@@ -1,5 +1,5 @@
 ---
-title: "A Look at Internet-Exposed ICS in Russia"
+title: "Internet-Exposed ICS in Russia"
 date: 2026-01-24
 draft: false
 description: "Why ICS remain a critical security concern"
