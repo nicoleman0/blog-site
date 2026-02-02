@@ -49,8 +49,12 @@ theme = 'PaperMod'
 
   # Home page
   [params.homeInfoParams]
-    Title = "Security Research & Development"
-    Content = "Exploring security research, building tools, and documenting development projects."
+    Title = "Corvus Blog"
+    Content = """
+Welcome to my corner of the internet where I explore the intersection of security and critical infrastructure.
+
+I'm a security researcher with a passion for understanding how systems break—and how to defend them. My work focuses on industrial control systems (ICS/OT), honeypot deployments, and IoT security research. When I'm not deploying Conpot honeypots or analyzing attack patterns, I'm diving into exploit development and documenting what I learn along the way.
+"""
 
   # Social icons
   [[params.socialIcons]]
