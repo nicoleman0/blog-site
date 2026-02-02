@@ -83,9 +83,11 @@ Then there's also the network impact. The command in my logs shows the malware u
 
 There's significant evidence from researchers that RedTail isn't just some random operation running out of a basement. The level of investment in the infrastructure I uncovered: the Estonian shell companies, German hosting, American IP reputation, Albanian burner numbers, private mining pools, and multi-architecture binaries, points toward a nation-state-sponsored actor. Most likely North Korea's Lazarus Group.
 
-The [Global Cyber Alliance's AIDE database](https://globalcyberalliance.org/aide-data-redtail/) links RedTail to a broader campaign of North Korean cyber operations. Unlike Russian groups that favor ransomware for quick payouts, North Korean groups use cryptomining as a steady, long-term revenue stream to bypass international sanctions. 
+The [Global Cyber Alliance's AIDE database](https://globalcyberalliance.org/aide-data-redtail/) links RedTail to a broader campaign of North Korean cyber operations. Unlike Russian groups that favor ransomware for quick payouts, North Korean groups use cryptomining as a steady, long-term revenue stream to bypass international sanctions.
 
-My HVAC honeypot isn't the primary target. It's just a "battery" they want to drain for cash. The beauty of cryptomining from their perspective is that it's low-risk and high-volume. Infect thousands of systems globally, run them at high CPU utilization, and let the cryptocurrency trickle in! No ransom negotiations, no data exfiltration, no triggering immediate incident response. They just quietly siphon computational resources to fund the operations of their ill regime.
+My HVAC honeypot isn't the primary target. To them it's just a battery they want to drain for cash. It could be anything.
+
+The beauty of cryptomining from their perspective is that it's low-risk and high-volume. Infect thousands of systems globally, run them at high CPU utilization, and let the cryptocurrency trickle in! No ransom negotiations, no data exfiltration, no triggering immediate incident response. They just quietly siphon computational resources to fund the operations of their ill regime.
 
 The multi-jurisdictional infrastructure I traced (Estonia, Germany, USA, Albania) makes perfect sense in this context. North Korea is one of the most heavily sanctioned nations on earth. Direct financial transactions are impossible. So they layer their operations through legitimate-looking Western infrastructure, wash their funds through fintech services using synthetic identities like "Jacob Andrew Kristuli," and convert computational power into cryptocurrency that can't be seized or frozen by traditional banking systems.
 
