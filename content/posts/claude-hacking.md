@@ -10,11 +10,7 @@ toc: false
 
 ## Telnet, Shodan, and Claude
 
-With the advent of these extremely powerful CLI coding agents, I decided to test out and see how well something like Claude performs in the context of independent security researching (poking around vulnerable systems).
-
-I began with some simple recon. I went over to [shodan](https://shodan.io), and looked around for some vulnerable systems running Telnet with root already logged in (not going to post about how to do this, but it's not hard).
-
-I found many vulnerable IPs, but chose one in Hong Kong at random. After manually testing whether or not I could remotely access the system and succeeding, it was now time to see if Claude could do the same.
+With the advent of these extremely powerful CLI coding agents, I decided to test out and see how well something like Claude performs. To do so, I used a fake Telnet server.
 
 When trying it out, the first issue I ran into was that the connection immediately dropped. Claude was able to connect without issue, but since telnet expects continuous real-time reponses from the client, it drops the connection due to Claude not being able to do that.
 
