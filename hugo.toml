@@ -50,7 +50,7 @@ theme = 'PaperMod'
   # Home page
   [params.homeInfoParams]
     Title = "Corvus Blog"
-    Content = """My work focuses on industrial control systems (ICS/OT), honeypot deployments, and IoT security research. When I'm not deploying Conpot honeypots or analyzing attack patterns, I'm diving into exploit development and documenting what I learn along the way."""
+    Content = """Corvus Blog is owned and operated by Nicholas Coleman, independent security researcher, IT worker, and Master's in Information Security student."""
 
   # Social icons
   [[params.socialIcons]]
