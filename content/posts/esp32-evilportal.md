@@ -113,7 +113,7 @@ Different devices handle captive portals differently:
 - **Windows**: May require manual browser navigation
 - **Linux**: Varies by distribution/network manager
 
-I tested across multiple devices to ensure broad compatibility. The captive portal works best on mobile devices. My EndeavourOS system refused to automatically open the malicious portal. Another win for Linux?
+I tested across multiple devices to ensure broad compatibility. The captive portal works best on mobile devices, as it automatically opens. On other devices, you have to try and search something first.
 
 ## Building and Flashing
 
