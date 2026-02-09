@@ -130,13 +130,13 @@ upload_speed = 460800
 
 ### Binary Distribution
 
-For easier sharing, I created a complete firmware package including:
+For easier sharing, I am working on creating a complete firmware package including:
 - Pre-compiled binaries (bootloader, partitions, firmware)
 - Flash script with auto-detection
 - Comprehensive documentation
 - Legal disclaimers
 
-Users can flash with a single command:
+Users will be able to flash with a single command:
 ```bash
 ./tools/flash.sh
 ```
