@@ -25,7 +25,7 @@ author = 'Nicholas Coleman'
 
   # About/bio section
   [params.about]
-    title = "Corvus Blog"
+    title = "Corvus"
     description = "Security research, tools, development projects, and CTF write-ups by Nicholas Coleman (independent security researcher, MSc. Information Security)."
     logo = "🐦‍⬛"  # Crow emoji for Corvus, the Latin word for Crows!
 
