@@ -18,7 +18,7 @@ The fix is simple in principle: get both OSes using the same key. The easiest wa
 
 The Bluetooth link keys in Windows are stored in the registry under:
 
-```
+```cmd
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
 ```
 
@@ -48,7 +48,7 @@ This launches regedit under the SYSTEM account, which is the only account that c
 
 Navigate to:
 
-```
+```cmd
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
 ```
 
@@ -56,7 +56,7 @@ Expand the folder — you should now see a subfolder named after your Bluetooth 
 
 In my case, the device (a Bose Mini II SoundLink) was a classic BR/EDR device. The link key was stored as a REG_BINARY value named with the device MAC, directly under the adapter MAC folder:
 
-```
+```cmd
 Keys\dc215c8aff1f\2811a50555c8 = 1e 98 ca 37 ed 0e a4 0e 2a a9 05 75 70 db 52 9a
 ```
 
@@ -86,7 +86,7 @@ sudo nano /var/lib/bluetooth/<ADAPTER_MAC>/<DEVICE_MAC>/info
 
 Find the `[LinkKey]` section and replace the `Key=` value with the Windows key, formatted as uppercase hex with no spaces or separators:
 
-```
+```bash
 [LinkKey]
 Key=1E98CA37ED0EA40E2AA9057570DB529A
 Type=4
