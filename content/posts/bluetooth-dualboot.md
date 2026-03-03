@@ -57,7 +57,7 @@ Expand the folder — you should now see a subfolder named after your Bluetooth 
 In my case, the device (a Bose Mini II SoundLink) was a classic BR/EDR device. The link key was stored as a REG_BINARY value named with the device MAC, directly under the adapter MAC folder:
 
 ```cmd
-Keys\dc215c8aff1f\2811a50555c8 = 1e 98 ca 37 ed 0e a4 0e 2a a9 05 75 70 db 52 9a
+Keys\<adapter_mac>\<device_mac> = xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx
 ```
 
 Note down the full hex value.
@@ -88,7 +88,7 @@ Find the `[LinkKey]` section and replace the `Key=` value with the Windows key, 
 
 ```bash
 [LinkKey]
-Key=1E98CA37ED0EA40E2AA9057570DB529A
+Key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Type=4
 PINLength=0
 ```
