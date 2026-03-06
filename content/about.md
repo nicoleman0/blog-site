@@ -5,12 +5,14 @@ draft: false
 showToc: false
 ---
 
-## Who I Am
+## Me
 
-I'm Nicholas, a security researcher.
+I'm Nicholas, an MSc Information Security student and IT intern with a hands-on interest in offensive security. This blog is where I document what I'm learning and building.
+
+## Corvus Blog
+
+Corvus (Latin for crow) is where I document projects, research, and the occasional guide. Crows are among the most intelligent animals on Earth — so it seemed fitting.
 
 ## Connect
 
-Find me on [GitHub](https://github.com/nicoleman0) where I share tools and research code.
-
-For professional inquiries or collaboration opportunities, feel free to reach out through GitHub.
+Find me on [GitHub](https://github.com/nicoleman0) for tools, research code, and contact information.
