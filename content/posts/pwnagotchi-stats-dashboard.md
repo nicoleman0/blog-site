@@ -84,7 +84,7 @@ python3 pwnagotchi_stats.py ~/handshakes/ -o dashboard.html --no-oui
 
 ## Legality
 
-Warwalking in the UK sits in a grey area that's worth being explicit about. The relevant legislation is the Computer Misuse Act 1990, which criminalises unauthorised access to computer material. But passive capture of probe requests and handshakes during association is not the same as accessing a network. I'm not connecting to anything, not decrypting traffic in real time, and not using any captured material to gain access to networks I don't own.
+To be 100% frank, warwalking in the UK sits in a grey legal area. The relevant legislation is the Computer Misuse Act 1990, which criminalises unauthorised access to computer material. But passive capture of probe requests and handshakes during association is not the same as accessing a network. I'm not connecting to anything, not decrypting traffic in real time, and not using any captured material to gain access to networks I don't own. This is pretty important.
 
 To keep things clean:
 
