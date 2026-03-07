@@ -1,6 +1,6 @@
 ---
 title: "Diagnosing and Hardening a Flaky Pi-hole on a Pi Zero 2W"
-date: 2026-03-06
+date: 2026-03-07
 description: "Fixing a slight issue with my Pi-hole"
 tags: ["homelab", "pi-hole", "raspberry-pi", "networking", "linux"]
 ---
@@ -106,7 +106,7 @@ Note: even with these lines commented out, systemd on Pi OS may already be using
 
 ## Updating Pi-hole
 
-This is also doing while you're in there:
+Worth doing while you're in there:
 
 ```bash
 pihole -up
@@ -141,16 +141,41 @@ If you get a permission error on `/etc/pihole/versions` (like I did), fix it wit
 sudo chmod 644 /etc/pihole/versions
 ```
 
-## Next Steps
+## Root Cause
 
-The root cause of the original crashes remains unconfirmed as of now however. I'd need to catch FTL in the act with `journalctl -u pihole-FTL --since "2 hours ago"` immediately after a failure to know for certain. That's my next step if it happens again.
+The issue resurfaced the next morning — web UI unreachable again, but this time SSH was still working. FTL's own log told the story:
 
-In the meantime, the setup is meaningfully more resilient:
+```
+INFO: Thread webserver (7) is idle, terminating it.
+INFO: All threads joined
+INFO: ########## FTL terminated after 15h 50m 45s (code 0)! ##########
+```
 
-- FTL restarts automatically within 10 seconds of a crash
+Code 0 — a clean, intentional shutdown. FTL wasn't crashing; it was terminating its internal webserver thread due to inactivity and not recovering. This is a known bug in Pi-hole v6's built-in web server. DNS and DHCP kept running fine, which is why the network only broke when the Pi had been down long enough for DHCP leases to expire.
+
+The fix is a cron job that checks every 15 minutes and restarts FTL if the web UI stops responding:
+
+```bash
+sudo crontab -e
+```
+
+Add:
+
+```
+*/15 * * * * curl -sk http://localhost/ | grep -q "Pi-hole" || systemctl restart pihole-FTL
+```
+
+This checks for actual HTML content rather than just a successful connection — important because the port stays open and accepting connections even when the webserver thread has died, which would fool a simpler check.
+
+## Summary
+
+The setup is now meaningfully more resilient:
+
+- FTL restarts automatically within 10 seconds if it crashes
+- A cron job catches the webserver thread idle bug and recovers within 15 minutes
 - If the whole system locks up, the hardware watchdog forces a reboot within ~1 minute
-- The network recovers without manual intervention (this saves me the pain of getting up to unplug my Pi)
+- The network recovers without manual intervention
 
-So this is not a root cause fix, but it's definitely a decent safety net while the investigation continues.
+Not bad for an afternoon (and a bit of next morning) of debugging.
 
 🐦‍⬛
