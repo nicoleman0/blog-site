@@ -143,15 +143,15 @@ sudo chmod 644 /etc/pihole/versions
 
 ## Root Cause
 
-The issue resurfaced the next morning — web UI unreachable again, but this time SSH was still working. FTL's own log told the story:
+The issue unfortunately resurfaced the next morning. The web UI was totally unreachable again, but this time SSH was still working. FTL's own log told the story:
 
-```
+```bash
 INFO: Thread webserver (7) is idle, terminating it.
 INFO: All threads joined
 INFO: ########## FTL terminated after 15h 50m 45s (code 0)! ##########
 ```
 
-Code 0 — a clean, intentional shutdown. FTL wasn't crashing; it was terminating its internal webserver thread due to inactivity and not recovering. This is a known bug in Pi-hole v6's built-in web server. DNS and DHCP kept running fine, which is why the network only broke when the Pi had been down long enough for DHCP leases to expire.
+Code 0 — a clean, intentional shutdown. FTL's internal webserver thread went idle, after which the entire FTL process terminated. That takes down DNS, DHCP, and the web UI together, which explains the full network impact.
 
 The fix is a cron job that checks every 15 minutes and restarts FTL if the web UI stops responding:
 
@@ -161,11 +161,17 @@ sudo crontab -e
 
 Add:
 
-```
+```bash
 */15 * * * * curl -sk http://localhost/ | grep -q "Pi-hole" || systemctl restart pihole-FTL
 ```
 
-This checks for actual HTML content rather than just a successful connection — important because the port stays open and accepting connections even when the webserver thread has died, which would fool a simpler check.
+This checks for actual HTML content rather than just a successful connection, which is a more reliable signal that FTL is actually healthy.
+
+## Reporting the Bug
+
+After confirming the root cause, I checked the Pi-hole GitHub to see if this was already a known issue. There are several open issues touching on FTL instability and webserver thread behaviour, but none that matched this specific failure mode exactly: webserver thread going idle triggering a clean FTL shutdown after extended uptime on a Pi Zero 2W.
+
+So, as every good citizen should, I filed an issue on the `pi-hole/FTL` repository with the relevant logs, hardware details, debug token, and the cron workaround. If you're hitting the same thing, it's worth adding your details there too. Here's the [link to the issue.](github.com/issues/created?issue=pi-hole|pi-hole|6559)
 
 ## Summary
 
@@ -177,5 +183,7 @@ The setup is now meaningfully more resilient:
 - The network recovers without manual intervention
 
 Not bad for an afternoon (and a bit of next morning) of debugging.
+
+Hopefully I don't run into anymore issues.
 
 🐦‍⬛
