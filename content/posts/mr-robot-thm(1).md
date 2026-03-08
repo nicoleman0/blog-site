@@ -18,22 +18,20 @@ Starting with a full port scan:
 
 ```bash
 nmap -sV -p- 10.82.169.159
-```
 
-```bash
 PORT    STATE  SERVICE VERSION
 22/tcp  closed ssh
 80/tcp  open   http
 443/tcp open   https
 ```
 
-The ports initially showed as closed because the machine was still booting. Worth remembering if results look wrong early on: just wait and re-scan.
+The ports initially showed as closed because the machine was still booting. Worth remembering if results look wrong early on. Just wait and re-scan.
 
 With HTTP and HTTPS open, the next step is web enumeration.
 
 ## Web Enumeration
 
-I started with dirbuster but it was painfully slow with a large wordlist. Switched to gobuster:
+I started with dirbuster but it was painfully slow with a large wordlist. So I switched to gobuster:
 
 ```bash
 gobuster dir -u http://10.82.169.159 -w /usr/share/dirb/wordlists/common.txt
@@ -46,7 +44,7 @@ Key findings:
 - `/license`
 - `/readme`
 
-WordPress installation confirmed.
+Bingo. WordPress installation confirmed.
 
 ## Robots.txt and Key 1
 
