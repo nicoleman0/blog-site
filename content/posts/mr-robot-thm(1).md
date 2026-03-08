@@ -1,15 +1,15 @@
 ---
-title = "Mr Robot - THM"
-date = 2026-03-08
-description = "Exploiting a WordPress installation to root via SUID nmap"
-tags = ["ctf", "tryhackme", "wordpress", "privilege-escalation", "suid", "nmap", "reverse-shell"]
+title: "Mr Robot - THM Walkthrough"
+date: 2026-03-08
+description: "Exploiting a WordPress installation to root via SUID nmap"
+tags: ["ctf", "tryhackme", "wordpress", "privilege-escalation", "suid", "nmap", "reverse-shell"]
 ---
 
 |           |                                        |
 |-----------|----------------------------------------|
 | **Difficulty** | Medium                            |
 | **OS**         | Linux                             |
-| **Tools Used** | nmap, gobuster, curl, netcat, john |
+| **Tools Used** | nmap, gobuster, curl, netcat, john|
 | **Platform**   | TryHackMe                         |
 
 ## Recon
