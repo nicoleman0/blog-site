@@ -193,4 +193,8 @@ Third flag retrieved from `/root/key-3-of-3.txt`.
 | Privesc          | SUID nmap interactive mode shell escape              |
 | Key 3            | Root flag                                            |
 
-This box chains together several individually low-complexity vulnerabilities: information disclosure in `robots.txt`, credentials left in a publicly accessible file, a WordPress theme editor that allows arbitrary PHP execution, a password hash stored with no access controls, and an SUID binary with a known shell escape. None of these are sophisticated on their own, but together they give you a clean path from anonymous visitor to root. The defensive takeaways are straightforward: don't use `robots.txt` as a security mechanism, disable the WordPress theme editor, restrict file permissions on sensitive data, replace MD5 with a proper hashing algorithm, and audit SUID binaries regularly.
+This box chains together several individually low-complexity vulnerabilities: information disclosure in `robots.txt`, credentials left in a publicly accessible file, a WordPress theme editor that allows arbitrary PHP execution, a password hash stored with no access controls, and an SUID binary with a known shell escape. 
+
+None of these are sophisticated on their own, but together they give you a clean path from anonymous visitor to root.
+
+The defensive takeaways are straightforward: don't use `robots.txt` as a security mechanism, disable the WordPress theme editor, restrict file permissions on sensitive data, replace MD5 with a proper hashing algorithm, and audit SUID binaries regularly.
