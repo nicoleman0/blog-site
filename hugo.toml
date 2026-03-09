@@ -21,7 +21,7 @@ author = 'Nicholas Coleman'
   # Color palette - choose from: gruvbox-dark, gruvbox-light, base16-dark,
   # base16-light, dracula, solarized-dark, solarized-light, tokyo-night, etc.
   [params.theme]
-    palette = "tokyo-night-dark"
+    palette = "catppuccin-mocha"
 
   # About/bio section
   [params.about]
