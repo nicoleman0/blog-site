@@ -33,7 +33,7 @@ Kismet is set to start on boot via systemd, which means it begins capturing the 
 
 With wardrive mode enabled in `/etc/kismet/kismet.conf`, Kismet reduces per-packet logging overhead and writes output optimised for wardriving rather than deep packet analysis:
 
-```
+```bash
 wardrive=true
 ```
 
@@ -67,7 +67,7 @@ On a cold start with no almanac, the chip has to rebuild its satellite catalogue
 
 A second configuration issue compounded this. The `-n` flag tells gpsd to start polling the device immediately, without waiting for a client to connect. Without it, gpsd sits idle until something queries it:
 
-```
+```bash
 GPSD_OPTIONS="-n"
 ```
 
